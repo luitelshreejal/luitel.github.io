@@ -4,9 +4,10 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-// User site at https://luitelshreejal.github.io/ — keep base "/" (Vite default).
+// Must match the repo name for project Pages: https://luitelshreejal.github.io/luitelshreejal/
+// For a user site repo (username.github.io), set base: "/".
 export default defineConfig(({ mode }) => ({
-  base: "/",
+  base: "/luitelshreejal/",
   server: {
     host: "::",
     port: 8080,
