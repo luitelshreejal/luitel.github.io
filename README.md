@@ -4,26 +4,29 @@ Personal portfolio site (regulatory science, AI, and drug development), built wi
 
 **Live site:** [https://luitelshreejal.github.io/luitelshreejal/](https://luitelshreejal.github.io/luitelshreejal/)
 
-## GitHub Pages (required setup)
+## GitHub Pages — fix a blank site
 
-This app must be **built** (Vite → `dist/`). Serving the raw repo from **“Deploy from a branch”** + **`/(root)`** only publishes unbundled source, so the site looks **blank**.
+GitHub must serve the **built** site (`dist/`), not the repo root. Your live page was still the dev `index.html` (`<script src="/src/main.tsx">`), which browsers cannot run on Pages — that shows up as a **blank white screen**.
 
-1. In the repo: **Settings → Pages → Build and deployment**.
-2. Set **Source** to **GitHub Actions** (not “Deploy from a branch”).
-3. Push to **`main`**. The workflow `.github/workflows/deploy-pages.yml` runs `npm run build` and publishes **`dist/`**.
+### One-time settings
 
-First time: open the **Actions** tab and approve the workflow if GitHub asks.
+1. Push **`main`** so the **Build and deploy site** workflow runs (see **Actions** tab; approve it if asked).
+2. **Settings → Pages → Build and deployment**
+3. Under **Source**, choose **Deploy from a branch**.
+4. Set **Branch** to **`gh-pages`** and folder **`/(root)`** — not `main`.  
+   The workflow creates/updates **`gh-pages`** with only the production files from **`dist/`**.
+
+If **Source** is set to **GitHub Actions** instead, switch it to **Deploy from a branch** and use **`gh-pages`** as above (this repo deploys by pushing that branch).
 
 ### Repo name and `base` URL
 
-This project is configured for a **project** site: repo name **`luitelshreejal`** → site at `/luitelshreejal/`.  
-`vite.config.ts` uses `base: "/luitelshreejal/"`. If you **rename** the repo, update `base` to `"/NEW-REPO-NAME/"`.
+Repo **`luitelshreejal`** → site path **`/luitelshreejal/`**. `vite.config.ts` uses `base: "/luitelshreejal/"`. If you rename the repo, update `base` to `"/NEW-NAME/"`.
 
-To use the **root** URL `https://luitelshreejal.github.io/` instead, rename the repository to **`luitelshreejal.github.io`** and change `base` to `"/"` in `vite.config.ts`.
+For **`https://luitelshreejal.github.io/`** (no subpath), use a repo named **`luitelshreejal.github.io`** and set `base: "/"`.
 
 ## Development
 
-Open **`http://localhost:8080/luitelshreejal/`** (Vite uses the same `base` as production).
+Use **`http://localhost:8080/luitelshreejal/`** (same `base` as production).
 
 ```bash
 npm install
@@ -36,7 +39,7 @@ npm run dev
 npm run build
 ```
 
-Output is written to `dist/`. The deploy workflow copies `index.html` to `404.html` so client-side routes work on refresh.
+The workflow copies `index.html` to `404.html` in `dist/` for SPA refreshes. `public/.nojekyll` is copied into `dist/` so GitHub Pages does not run Jekyll on the build output.
 
 ## Other scripts
 
