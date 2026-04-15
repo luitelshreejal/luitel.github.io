@@ -6,21 +6,19 @@ Personal portfolio site (regulatory science, AI, and drug development), built wi
 
 ## GitHub Pages — fix a blank site
 
-GitHub must serve the **built** site (`dist/`), not the repo root. Your live page was still the dev `index.html` (`<script src="/src/main.tsx">`), which browsers cannot run on Pages — that shows up as a **blank white screen**.
+The live site must be the **Vite build** (`dist/`), not the repo root. A dev `index.html` that loads `/src/main.tsx` will always look **blank** on Pages.
 
-### One-time settings
+### Settings (do this once)
 
-1. Push **`main`** so the **Build and deploy site** workflow runs (see **Actions** tab; approve it if asked).
-2. **Settings → Pages → Build and deployment**
-3. Under **Source**, choose **Deploy from a branch**.
-4. Set **Branch** to **`gh-pages`** and folder **`/(root)`** — not `main`.  
-   The workflow creates/updates **`gh-pages`** with only the production files from **`dist/`**.
+1. **Settings → Pages → Build and deployment**
+2. Set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Push **`main`**. The workflow **Deploy to GitHub Pages** runs `npm run build` and publishes only **`dist/`**.
 
-If **Source** is set to **GitHub Actions** instead, switch it to **Deploy from a branch** and use **`gh-pages`** as above (this repo deploys by pushing that branch).
+The old **`static.yml`** workflow uploaded the **whole repository** (including dev `index.html`). That file is removed so the correct workflow can deploy the build.
 
 ### Repo name and `base` URL
 
-Repo **`luitelshreejal`** → site path **`/luitelshreejal/`**. `vite.config.ts` uses `base: "/luitelshreejal/"`. If you rename the repo, update `base` to `"/NEW-NAME/"`.
+Repo **`luitelshreejal`** → URL path **`/luitelshreejal/`**. `vite.config.ts` uses `base: "/luitelshreejal/"`. If you rename the repo, update `base` to `"/NEW-NAME/"`.
 
 For **`https://luitelshreejal.github.io/`** (no subpath), use a repo named **`luitelshreejal.github.io`** and set `base: "/"`.
 
