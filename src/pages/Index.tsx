@@ -23,7 +23,7 @@ const experiences = [
   },
   {
     period: "Feb 2025 – Nov 2025",
-    role: "Co-Founder & Program Director",
+    role: "Co-Founder & Instructor",
     org: "Berkeley Banatao Center for GLOBE",
     detail: "Co-created and taught an ML/deep learning program for low-income high school students. Led curriculum design, recruiting, and instruction.",
   },
